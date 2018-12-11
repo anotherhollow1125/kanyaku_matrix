@@ -84,70 +84,6 @@ proc parseMatrix(mat_s: seq[seq[cstring]]): Matrix =
 
 # 肝心の簡約化はここから
 
-# proc echelonize(mat: Matrix): Matrix =
-#   result = mat
-#   let
-#     row_num = len(result)
-#     col_num = len(result[0])
-#   for j in 0..<col_num:
-#     for i in j..<row_num:
-#       for k in j..<row_num:
-#         var a = result[k][j]
-#         echo a
-#         if a.nume == 0: continue
-
-#         result[k] = result[k].map(proc(r: Ratio): Ratio = r / a)
-
-#         for p in i..<row_num:
-#           if result[p][j].nume == 0:
-#             continue
-#           elif p == k:
-#             # result[k] = result[k].map(proc(r: Ratio): Ratio = r / a)
-#             echo "p == k: " & $p
-#           else:
-#             # var t = result[p][j] / a
-#             for q in j..<col_num:
-#               result[p][q] = result[p][q] - result[k][q] * result[p][j]
-
-#         (result[i], result[k]) = (result[k], result[i])
-#         break
-#       echo result
-
-# proc echelonize(mat: Matrix): Matrix =
-#   result = mat
-#   let
-#     row_num = len(result)
-#     col_num = len(result[0])
-#   # for j in 0..<col_num:
-#   var
-#     col_j, j = 0
-#   while col_j < col_num and j < col_num:
-#     for i in j..<row_num:
-#       var a = result[i][j]
-#       echo a
-#       if a.nume == 0:
-#         if i < row_num-1:
-#           continue
-#         else:
-#           col_j += 1 # 列カウンタのみ進める
-#           break
-
-#       result[i] = result[i].map(proc(r: Ratio): Ratio = r / a)
-
-#       for p in 0..<row_num:
-#         if result[p][j].nume == 0:
-#           continue
-#         elif p != i:
-#           var t = result[p][j]
-#           for q in j..<col_num:
-#             result[p][q] = result[p][q] - result[i][q] * t
-
-#       (result[i], result[j]) = (result[j], result[i])
-#       j += 1
-#       col_j += 1
-#       break
-#     echo result
-
 proc echelonize(mat: Matrix): Matrix =
   result = mat
   let
@@ -159,7 +95,6 @@ proc echelonize(mat: Matrix): Matrix =
   while j < col_num and i < row_num:
     for k in i..<row_num:
       var a = result[k][j]
-      echo a
       if a.nume == 0:
         if k < row_num-1:
           continue
@@ -179,7 +114,6 @@ proc echelonize(mat: Matrix): Matrix =
       i += 1
       j += 1
       break
-    echo result
 
 proc main(mat_s: seq[seq[cstring]]): cstring {. exportc .} =
   var
