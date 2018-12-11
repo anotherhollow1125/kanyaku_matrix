@@ -1,0 +1,35 @@
+@charset "utf-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+}
+
+body > * {
+    margin-left: 30px;
+}
+
+button {
+    width: 80px;
+    height: 50px;
+}
+
+input, table#result td {
+    height: 40px;
+    min-width: 40px;
+    max-width: 100px;
+    text-align: center;
+}
+
+table#input-mat, table#input-mat td {
+    border: 2px gray solid;
+}
+
+table#result, table#result td {
+    border: 2px gray solid;
+}
+
+input.ipt-val {
+    border: none;
+}

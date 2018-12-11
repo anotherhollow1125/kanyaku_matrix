@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>行列 簡約化</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="ech_mat.js"></script>
+</head>
+<body>
+    <br>
+    <h1>行列 簡約化ツール</h1>
+    <br>
+    <table>
+        <tbody>
+            <tr>
+                <td>行数: </td><td><input type="number" name="row-num" class="shape" value=4></td>
+            </tr>
+            <tr>
+                <td>列数: </td><td><input type="number" name="col-num" class="shape" value=4></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <button id="apply">設定</button>
+    <br>
+    <br>
+    <br>
+    <table id="input-mat">
+        <tbody></tbody>
+    </table>
+    <br>
+    <button id="main">簡約化</button>
+    <br>
+    <br>
+    <table id="result">
+        <tbody></tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <script>
+    var 
+        row_num = 4,
+        col_num = 4,
+        row_num_elm = document.getElementsByName("row-num")[0],
+        col_num_elm = document.getElementsByName("col-num")[0],
+        input_mat_tb = document.querySelector("table#input-mat > tbody"),
+        result_tb = document.querySelector("table#result > tbody");
+
+    function apply_setting() {
+        input_mat_tb.innerHTML = "";
+        row_num = parseInt(row_num_elm.value);
+        col_num = parseInt(col_num_elm.value);
+        for (var i = 0; i < row_num; i++) {
+            var tr = document.createElement("tr");
+            tr.setAttribute("class", "ipt-row");
+            for (var j = 0; j < col_num; j++) {
+                var
+                    td = document.createElement("td"),
+                    ipt = document.createElement("input");
+                ipt.setAttribute("type", "text");
+                ipt.setAttribute("name", "ipt-val");
+                ipt.setAttribute("class", "ipt-val");
+                ipt.setAttribute("value", 0);
+                td.appendChild(ipt);
+                tr.appendChild(td);
+            }
+            input_mat_tb.appendChild(tr);
+        }
+    }
+    apply_setting();
+    document.getElementById("apply").addEventListener("click", apply_setting, false);
+    document.getElementById("apply").addEventListener("touchstart", apply_setting, false);
+
+    function main_eve() {
+        input_mat = [];
+        document.querySelectorAll(".ipt-row").forEach(function(row){
+            row_vals = [];
+            row.querySelectorAll(".ipt-val").forEach(function(elm){
+                row_vals.push(elm.value);
+            });
+            input_mat.push(row_vals);
+        });
+        res = eval(main(input_mat));
+        result_tb.innerHTML = "";
+        res.forEach(function(row){
+            var tr = document.createElement("tr");
+            row.forEach(function(val){
+                var td = document.createElement("td");
+                td.innerHTML = val;
+                tr.appendChild(td);
+            });
+            result_tb.appendChild(tr);
+        });
+    }
+
+    document.getElementById("main").addEventListener("click", main_eve, false);
+    document.getElementById("main").addEventListener("touchstart", main_eve, false);
+    </script>
+</body>
+</html>
